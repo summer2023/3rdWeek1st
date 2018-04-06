@@ -12,44 +12,136 @@ public class Reduce {
         this.arrayList = arrayList;
     }
 
+    public boolean isEven(int num){
+        boolean flag=false;
+        if (num % 2 == 0) {
+            flag=true;
+        }
+        return flag;
+    }
+
     public int getMaximum() {
-        throw new NotImplementedException();
+        int result = 0;
+        int max = 0;
+        for (Integer n : arrayList) {
+            if(n>max){
+                max=n;
+            }
+        }
+        //throw new NotImplementedException();
+        result = max;
+        return result;
     }
 
     public double getMinimum() {
-        throw new NotImplementedException();
+        int result = 0;
+        int min = arrayList.get(0);
+        for (Integer n : arrayList) {
+            if(n<min){
+                min=n;
+            }
+        }
+        result = min;
+        return result;
+        //throw new NotImplementedException();
     }
 
     public double getAverage() {
-        throw new NotImplementedException();
+        double result=0.0;
+        int sum=0;
+        for (Integer n : arrayList) {
+            sum=sum+n;
+        }
+        result=sum/(double)arrayList.size();
+        //throw new NotImplementedException();
+        return result;
     }
 
     public double getOrderedMedian() {
-        throw new NotImplementedException();
-    }
-
-    public int getFirstEven() {
-        throw new NotImplementedException();
-    }
-
-    public int getIndexOfFirstEven() {
-        throw new NotImplementedException();
-    }
-
-    public boolean isEqual(List<Integer> arrayList) {
-        throw new NotImplementedException();
+        double result = 0.0;
+        int flag=0;
+        if (isEven(arrayList.size())) {
+            flag = arrayList.size() / 2;
+            result = ((arrayList.get(flag - 1) + arrayList.get(flag)) / (double)2);
+        }else{
+            flag = arrayList.size() / 2;
+            result = (double) (arrayList.get(flag));
+        }
+        //throw new NotImplementedException();
+        return result;
     }
 
     //实现接口SingleLink，然后再此函数内使用
     public Double getMedianInLinkList(SingleLink singleLink) {
-        throw new NotImplementedException();
+        Double result=0.0;
+        int flag=0;
+        if (isEven(arrayList.size())) {
+            flag = arrayList.size() / 2;
+            //result = ((singleList.getNode(flag) + singleList.getNode(flag + 1)) / (double) 2);
+        }else{
+            flag = arrayList.size() / 2;
+            result = (double) (singleList.getNode(flag+1));
+        }
+        return result;
+    }
+
+    public int getFirstEven() {
+        int result=0;
+        for (Integer n : arrayList) {
+            if (isEven(n)) {
+                result=n;
+                break;
+            }
+        }
+
+        //throw new NotImplementedException();
+        return result;
+    }
+
+    public int getIndexOfFirstEven() {
+        int result = 0;
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (isEven(arrayList.get(i))) {
+                result=i;
+            }
+        }
+        //throw new NotImplementedException();
+        return result;
     }
 
     public int getLastOdd() {
-        throw new NotImplementedException();
+        int result = 0;
+        for (int i = arrayList.size()-1; i >=0; i--) {
+            if (!isEven(arrayList.get(i))) {
+                result = arrayList.get(i);
+            }
+        }
+        //throw new NotImplementedException();
+        return result;
     }
 
     public int getIndexOfLastOdd() {
-        throw new NotImplementedException();
+        int result = 0;
+        for (int i = arrayList.size()-1; i >=0; i--) {
+            if (!isEven(arrayList.get(i))) {
+                result = i;
+            }
+        }
+        //throw new NotImplementedException();
+        return result;
     }
+
+    public boolean isEqual(List<Integer> arrayList1) {
+        boolean result = true;
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i) != arrayList1.get(i)) {
+                result=false;
+                break;
+            }
+        }
+        //throw new NotImplementedException();
+        return result;
+    }
+
+
 }

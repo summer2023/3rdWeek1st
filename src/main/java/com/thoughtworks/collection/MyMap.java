@@ -2,7 +2,9 @@ package com.thoughtworks.collection;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class MyMap {
@@ -17,22 +19,58 @@ public class MyMap {
     }
 
     public List<Integer> getTriple() {
-        throw new NotImplementedException();
+        List<Integer> result = new ArrayList<Integer>();
+        for (Integer n : array) {
+            result.add(n*3);
+        }
+        //throw new NotImplementedException();
+        return result;
     }
 
     public List<String> mapLetter() {
-        throw new NotImplementedException();
+        List<String> result = new ArrayList<String>();
+        for (Integer n : array) {
+            result.add(String.valueOf((char)(n+96)));
+        }
+        //throw new NotImplementedException();
+        return result;
     }
 
     public List<String> mapLetters() {
-        throw new NotImplementedException();
+        List<String> result = new ArrayList<String>();
+        for (Integer n : array) {
+            StringBuffer sb=new StringBuffer();
+            int quotient=n/26;
+            int remainder=n%26;
+            sb.append((char) (quotient + 96)).append((char) (remainder + 96));
+            result.add(sb.toString());
+        }
+        //throw new NotImplementedException();
+        return result;
     }
 
     public List<Integer> sortFromBig() {
-        throw new NotImplementedException();
+        List<Integer> result = new ArrayList<Integer>();
+        List<Integer> tmp = new ArrayList<Integer>();
+        for (Integer n : array) {
+            tmp.add(n);
+        }
+        Collections.sort(tmp);
+        for (int i = tmp.size()-1; i >=0 ; i--) {
+            result.add(tmp.get(i));
+        }
+        //throw new NotImplementedException();
+        return result;
     }
 
     public List<Integer> sortFromSmall() {
-        throw new NotImplementedException();
+        List<Integer> result = new ArrayList<Integer>();
+        for (Integer n : array) {
+            result.add(n);
+        }
+        Collections.sort(result);
+        //throw new NotImplementedException();
+        return result;
+        //throw new NotImplementedException();
     }
 }
