@@ -20,7 +20,7 @@ public class CollectionOperator {
                 result.add(i);
             }
         }else{
-            for(int i=right;i>=left;i--) {
+            for(int i=left;i>=right;i--) {
                 result.add(i);
             }
         }
@@ -37,7 +37,7 @@ public class CollectionOperator {
                 result.add(i);
             }
         }else{
-            for(int i=start;i>=left;i=i-2) {
+            for(int i=start;i>=right;i=i-2) {
                 result.add(i);
             }
         }

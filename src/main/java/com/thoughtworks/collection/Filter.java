@@ -36,7 +36,7 @@ public class Filter {
     public List<Integer> filterMultipleOfThree() {
         List<Integer> result = new ArrayList<Integer>();
         for (Integer n : array) {
-            if(n/3==0){
+            if(n%3==0){
                 result.add(n);
             }
         }

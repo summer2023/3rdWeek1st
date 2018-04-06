@@ -42,7 +42,11 @@ public class MyMap {
             StringBuffer sb=new StringBuffer();
             int quotient=n/26;
             int remainder=n%26;
-            sb.append((char) (quotient + 96)).append((char) (remainder + 96));
+            if(n>26) {
+                sb=remainder==0?sb.append((char) (quotient + 95)).append((char) (26+ 96)):sb.append((char) (quotient + 96)).append((char) (remainder + 96));
+            }else {
+                sb.append((char) (remainder + 96));
+            }
             result.add(sb.toString());
         }
         //throw new NotImplementedException();

@@ -72,7 +72,7 @@ public class Reduce {
     }
 
     //实现接口SingleLink，然后再此函数内使用
-    public Double getMedianInLinkList(SingleLink singleLink) {
+    /*public Double getMedianInLinkList(SingleLink singleLink) {
         Double result=0.0;
         int flag=0;
         if (isEven(arrayList.size())) {
@@ -83,7 +83,7 @@ public class Reduce {
             result = (double) (singleList.getNode(flag+1));
         }
         return result;
-    }
+    }*/
 
     public int getFirstEven() {
         int result=0;
@@ -103,6 +103,7 @@ public class Reduce {
         for (int i = 0; i < arrayList.size(); i++) {
             if (isEven(arrayList.get(i))) {
                 result=i;
+                break;
             }
         }
         //throw new NotImplementedException();
@@ -114,6 +115,7 @@ public class Reduce {
         for (int i = arrayList.size()-1; i >=0; i--) {
             if (!isEven(arrayList.get(i))) {
                 result = arrayList.get(i);
+                break;
             }
         }
         //throw new NotImplementedException();
@@ -125,6 +127,7 @@ public class Reduce {
         for (int i = arrayList.size()-1; i >=0; i--) {
             if (!isEven(arrayList.get(i))) {
                 result = i;
+                break;
             }
         }
         //throw new NotImplementedException();
@@ -133,10 +136,14 @@ public class Reduce {
 
     public boolean isEqual(List<Integer> arrayList1) {
         boolean result = true;
-        for (int i = 0; i < arrayList.size(); i++) {
-            if (arrayList.get(i) != arrayList1.get(i)) {
-                result=false;
-                break;
+        if(arrayList.size()!=arrayList1.size()){
+            result=false;
+        }else {
+            for (int i = 0; i < arrayList.size()-1; i++) {
+                if (arrayList.get(i) != arrayList1.get(i)) {
+                    result=false;
+                    break;
+                }
             }
         }
         //throw new NotImplementedException();
