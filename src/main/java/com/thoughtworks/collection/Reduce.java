@@ -32,18 +32,19 @@ public class Reduce {
     }
 
     //实现接口SingleLink，然后再此函数内使用
-    public Double getMedianInLinkList(SingleLink singleLink) {
-        Double result=0.0;
-        int flag=0;
-        singleLink = new SingleList(arrayList);
-        if (arrayList.size()%2==0) {
-            flag = arrayList.size() / 2;
-            result = (Integer.parseInt(singleLink.getNode(flag).toString())+ Integer.parseInt(singleLink.getNode(flag + 1).toString())) / (double) 2;
-        }else{
-            flag = arrayList.size() / 2;
-            result = (double) (singleLink.getNode(flag+1));
+    public Double getMedianInLinkList(SingleLink<Integer> singleLink) {
+        for(int i=0; i<arrayList.size(); i++){
+
+            singleLink.addTailPointer(arrayList.get(i));
         }
-        return result;
+
+        int index = arrayList.size()/2;
+
+        if(arrayList.size()%2 == 0){
+            return (singleLink.getNode(index) + singleLink.getNode(index+1))/2.0;
+        }else{
+            return (double)singleLink.getNode(index+1);
+        }
     }
 
     public int getFirstEven() {
