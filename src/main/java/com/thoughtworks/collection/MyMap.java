@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MyMap {
 
@@ -19,21 +20,11 @@ public class MyMap {
     }
 
     public List<Integer> getTriple() {
-        List<Integer> result = new ArrayList<Integer>();
-        for (Integer n : array) {
-            result.add(n*3);
-        }
-        //throw new NotImplementedException();
-        return result;
+        return array.stream().map(num->num*3).collect(Collectors.toList());
     }
 
     public List<String> mapLetter() {
-        List<String> result = new ArrayList<String>();
-        for (Integer n : array) {
-            result.add(String.valueOf((char)(n+96)));
-        }
-        //throw new NotImplementedException();
-        return result;
+        return array.stream().map(num->String.valueOf((char)(num+96))).collect(Collectors.toList());
     }
 
     public List<String> mapLetters() {
@@ -49,32 +40,19 @@ public class MyMap {
             }
             result.add(sb.toString());
         }
-        //throw new NotImplementedException();
         return result;
     }
 
     public List<Integer> sortFromBig() {
-        List<Integer> result = new ArrayList<Integer>();
-        List<Integer> tmp = new ArrayList<Integer>();
-        for (Integer n : array) {
-            tmp.add(n);
+        List<Integer> list1 = array.stream().sorted().collect(Collectors.toList());
+        List<Integer> list2 = new ArrayList<Integer>();
+        for (int i=list1.size()-1;i>=0; i--){
+            list2.add(list1.get(i));
         }
-        Collections.sort(tmp);
-        for (int i = tmp.size()-1; i >=0 ; i--) {
-            result.add(tmp.get(i));
-        }
-        //throw new NotImplementedException();
-        return result;
+        return list2;
     }
 
     public List<Integer> sortFromSmall() {
-        List<Integer> result = new ArrayList<Integer>();
-        for (Integer n : array) {
-            result.add(n);
-        }
-        Collections.sort(result);
-        //throw new NotImplementedException();
-        return result;
-        //throw new NotImplementedException();
+        return array.stream().sorted().collect(Collectors.toList());
     }
 }

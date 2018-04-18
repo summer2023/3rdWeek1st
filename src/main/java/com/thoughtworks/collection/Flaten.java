@@ -3,36 +3,28 @@ package com.thoughtworks.collection;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Flaten {
 
-    Integer[][] array;
-    public Flaten(Integer[][] array) {
+    int[][] array;
+    //Integer[][] array;
+    public Flaten(int[][] array) {
         this.array = array;
     }
 
     public List<Integer> transformToOneDimesional() {
-        List<Integer> result = new ArrayList<Integer>();
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                result.add(array[i][j]);
-            }
-        }
-        return result;
-        //throw new NotImplementedException();
+        int[] change = Arrays.stream(array).flatMapToInt(num -> Arrays.stream(num)).toArray();
+        return IntStream.of(change).boxed().collect(Collectors.toList());
+        //return Arrays.stream(array).mapToInt(Integer::valueOf).flatMapToInt(num -> Arrays.stream(num)).collect(Collectors.toList());  vauleOf标红？
     }
 
     public List<Integer> transformToUnrepeatedOneDimesional() {
-        List<Integer> result = new ArrayList<Integer>();
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                if (!result.contains(array[i][j])) {
-                    result.add(array[i][j]);
-                }
-            }
-        }
-        return result;
-        //throw new NotImplementedException();
+        int[] change = Arrays.stream(array).flatMapToInt(num -> Arrays.stream(num)).toArray();
+        return IntStream.of(change).boxed().distinct().collect(Collectors.toList());
     }
 }

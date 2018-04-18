@@ -22,8 +22,6 @@ public class InverseReduce {
         for (int i = number - 2; i > 0; i = i - 2) {
             result.add(i);
         }
-        //throw new NotImplementedException();
         return result;
     }
-
 }

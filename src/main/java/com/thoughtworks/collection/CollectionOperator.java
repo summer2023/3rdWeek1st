@@ -3,91 +3,52 @@ package com.thoughtworks.collection;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class CollectionOperator {
-    public boolean isEven(int n){
-        boolean flag = false;
-        if (n % 2 == 0) {
-            flag=true;
-        }
-        return flag;
-    }
+
     public List<Integer> getListByInterval(int left, int right) {
-        List<Integer> result = new ArrayList<Integer>();
-        if(left<right){
-            for(int i=left;i<=right;i++) {
-                result.add(i);
-            }
-        }else{
-            for(int i=left;i>=right;i--) {
-                result.add(i);
-            }
+        if(left<=right){return IntStream.rangeClosed(left, right).boxed().collect(Collectors.toList());}
+        List<Integer> list1=IntStream.rangeClosed(right,left).boxed().collect(Collectors.toList());
+        List<Integer> list2 = new ArrayList<Integer>();
+        for (int i=list1.size()-1;i>=0; i--){
+            list2.add(list1.get(i));
         }
-        return result;
-        //throw new NotImplementedException();
+        return list2;
     }
 
     public List<Integer> getEvenListByIntervals(int left, int right) {
-        int flag=left<right?1:0;
-        int start = isEven(left) ? left : (flag == 1 ? left + 1 : left - 1);
-        List<Integer> result = new ArrayList<Integer>();
-        if(left<right){
-            for(int i=start;i<=right;i=i+2) {
-                result.add(i);
-            }
-        }else{
-            for(int i=start;i>=right;i=i-2) {
-                result.add(i);
-            }
+        if(left<=right){return IntStream.rangeClosed(left, right).boxed().filter(num->num%2==0).collect(Collectors.toList());}
+        List<Integer> list1=IntStream.rangeClosed(right,left).boxed().filter(num->num%2==0).collect(Collectors.toList());
+        List<Integer> list2 = new ArrayList<Integer>();
+        for (int i=list1.size()-1;i>=0; i--){
+            list2.add(list1.get(i));
         }
-        return result;
-        //throw new NotImplementedException();
+        return list2;
     }
 
     public List<Integer> popEvenElments(int[] array) {
-        List<Integer> result = new ArrayList<Integer>();
-        for (int i : array) {
-            if(isEven(i)){
-                result.add(i);
-            }
-        }
-        return result;
-        //throw new NotImplementedException();
+        return IntStream.of(array).boxed().filter(num->num%2==0).collect(Collectors.toList());
     }
 
     public int popLastElment(int[] array) {
-        int result;
-        int len=array.length;
-        result = array[len - 1];
-        return result;
-       // throw new NotImplementedException();
+        return IntStream.of(array).boxed().skip(array.length-1).findFirst().get();
     }
 
     public List<Integer> popCommonElement(int[] firstArray, int[] secondArray) {
-        List<Integer> result = new ArrayList<Integer>();
-        for (int n : firstArray) {
-            for (int num : secondArray) {
-                if (n == num) {
-                    result.add(n);
-                }
-            }
-        }
-        return result;
-        //throw new NotImplementedException();
+        List<Integer> list2 = IntStream.of(secondArray).boxed().collect(Collectors.toList());
+       return IntStream.of(firstArray).boxed().filter(t->list2.contains(t)).collect(Collectors.toList());
     }
 
     public List<Integer> addUncommonElement(Integer[] firstArray, Integer[] secondArray) {
-        List<Integer> result = new ArrayList<Integer>();
-        for (Integer n : firstArray) {
-            result.add(n);
-        }
-        for (Integer m : secondArray) {
-            if(!result.contains(m)){
-                result.add(m);
-            }
-        }
-        return result;
-//        throw new NotImplementedException();
+        List<Integer> list1 = Stream.of(firstArray).collect(Collectors.toList());
+        List<Integer> list2=Stream.of(secondArray).collect(Collectors.toList());
+        list1.addAll(Stream.of(secondArray).filter(t->!list1.contains(t)).collect(Collectors.toList()));
+        return list1;
     }
 }

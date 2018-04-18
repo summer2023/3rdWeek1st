@@ -3,6 +3,7 @@ package com.thoughtworks.collection;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Reduce {
 
@@ -12,125 +13,67 @@ public class Reduce {
         this.arrayList = arrayList;
     }
 
-    public boolean isEven(int num){
-        boolean flag=false;
-        if (num % 2 == 0) {
-            flag=true;
-        }
-        return flag;
-    }
-
     public int getMaximum() {
-        int result = 0;
-        int max = 0;
-        for (Integer n : arrayList) {
-            if(n>max){
-                max=n;
-            }
-        }
-        //throw new NotImplementedException();
-        result = max;
-        return result;
+        return arrayList.stream().mapToInt(Integer::valueOf).sorted().skip(arrayList.size()-1).findFirst().getAsInt();
     }
 
     public double getMinimum() {
-        int result = 0;
-        int min = arrayList.get(0);
-        for (Integer n : arrayList) {
-            if(n<min){
-                min=n;
-            }
-        }
-        result = min;
-        return result;
-        //throw new NotImplementedException();
+        return arrayList.stream().mapToInt(Integer::valueOf).sorted().findFirst().getAsInt();
     }
 
     public double getAverage() {
-        double result=0.0;
-        int sum=0;
-        for (Integer n : arrayList) {
-            sum=sum+n;
-        }
-        result=sum/(double)arrayList.size();
-        //throw new NotImplementedException();
-        return result;
+        return arrayList.stream().mapToInt(Integer::intValue).average().getAsDouble();
     }
 
     public double getOrderedMedian() {
-        double result = 0.0;
-        int flag=0;
-        if (isEven(arrayList.size())) {
-            flag = arrayList.size() / 2;
-            result = ((arrayList.get(flag - 1) + arrayList.get(flag)) / (double)2);
-        }else{
-            flag = arrayList.size() / 2;
-            result = (double) (arrayList.get(flag));
-        }
-        //throw new NotImplementedException();
-        return result;
+        List<Integer> list=arrayList.stream().sorted().collect(Collectors.toList());
+        return list.size()%2==0?list.stream().skip(list.size()/2-1).limit(2).mapToDouble(num->num).average().getAsDouble():
+                list.stream().skip(list.size()/2).mapToDouble(num->num).findFirst().getAsDouble();
     }
 
     //实现接口SingleLink，然后再此函数内使用
-    /*public Double getMedianInLinkList(SingleLink singleLink) {
+    public Double getMedianInLinkList(SingleLink singleLink) {
         Double result=0.0;
         int flag=0;
-        if (isEven(arrayList.size())) {
+        singleLink = new SingleList(arrayList);
+        if (arrayList.size()%2==0) {
             flag = arrayList.size() / 2;
-            //result = ((singleList.getNode(flag) + singleList.getNode(flag + 1)) / (double) 2);
+            result = (Integer.parseInt(singleLink.getNode(flag).toString())+ Integer.parseInt(singleLink.getNode(flag + 1).toString())) / (double) 2;
         }else{
             flag = arrayList.size() / 2;
-            result = (double) (singleList.getNode(flag+1));
+            result = (double) (singleLink.getNode(flag+1));
         }
         return result;
-    }*/
+    }
 
     public int getFirstEven() {
-        int result=0;
-        for (Integer n : arrayList) {
-            if (isEven(n)) {
-                result=n;
-                break;
-            }
-        }
-
-        //throw new NotImplementedException();
-        return result;
+       return arrayList.stream().mapToInt(Integer::intValue).filter(num->num%2==0).findFirst().getAsInt();
     }
 
     public int getIndexOfFirstEven() {
         int result = 0;
         for (int i = 0; i < arrayList.size(); i++) {
-            if (isEven(arrayList.get(i))) {
+            if (arrayList.get(i)%2==0) {
                 result=i;
                 break;
             }
         }
-        //throw new NotImplementedException();
         return result;
     }
 
     public int getLastOdd() {
-        int result = 0;
-        for (int i = arrayList.size()-1; i >=0; i--) {
-            if (!isEven(arrayList.get(i))) {
-                result = arrayList.get(i);
-                break;
-            }
-        }
-        //throw new NotImplementedException();
-        return result;
+        List<Integer> list=arrayList.stream().filter(num->num%2!=0).collect(Collectors.toList());
+        return list.stream().mapToInt(Integer::intValue).skip(list.size()-1).findFirst().getAsInt();
     }
 
     public int getIndexOfLastOdd() {
         int result = 0;
         for (int i = arrayList.size()-1; i >=0; i--) {
-            if (!isEven(arrayList.get(i))) {
+            if (arrayList.get(i)%2!=0) {
                 result = i;
                 break;
             }
         }
-        //throw new NotImplementedException();
         return result;
     }
 
@@ -146,7 +89,6 @@ public class Reduce {
                 }
             }
         }
-        //throw new NotImplementedException();
         return result;
     }
 

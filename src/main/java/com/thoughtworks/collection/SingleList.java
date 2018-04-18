@@ -1,5 +1,7 @@
 package com.thoughtworks.collection;
 
+import java.util.List;
+
 public class SingleList<T> implements SingleLink<T> {
     protected Node<T> head;
 
@@ -13,24 +15,21 @@ public class SingleList<T> implements SingleLink<T> {
         }
 
         public Node() {
-            this(null, null);
-        }
 
-        public Node getNext() {
-            return this.next;
         }
     }
+
 
     public SingleList(){
         this.head = new Node<T>();
     }
 
-    public SingleList(T[] element) {
+
+    public SingleList(List<T> element) {
         this();
         Node<T> p=this.head;
-        for(int i=0;i<element.length;i++) {
-            p.next = new Node<T>(element[i], null);
-            p = p.next;
+        for(int i=0;i<element.size();i++) {
+            addTailPointer(element.get(i));
         }
     }
 
